@@ -6,4 +6,6 @@ mongoose.connect(
   `mongodb+srv://testInsole:${password}@cluster0.zoc4fqm.mongodb.net/?retryWrites=true&w=majority`,
 ).catch(() => console.log('Banco Conectado'));
 
-module.exports = mongoose;
+let db = mongoose.connection
+
+module.exports = db;
