@@ -1,45 +1,45 @@
 const Products = require('../models/productSchema');
 
 const insertProduct = (req, res) => {
-  let product = new Products(req.body);
+  const product = new Products(req.body);
 
   product.save((err) => {
-    if(err) {
-      res.status(500).send({message: `${err.message} - falha ao cadastrar produto.`})
+    if (err) {
+      res.status(500).send({ message: `${err.message} - falha ao cadastrar produto.` });
     } else {
-      res.status(201).send(product.toJSON())
+      res.status(201).send(product.toJSON());
     }
-  })
-}
+  });
+};
 
 const removeProduct = (req, res) => {
-  const id = req.params.id;
+  const { id } = req.params;
 
   Products.findByIdAndDelete(id, (err) => {
-    if(!err){
-      res.status(200).send({message: 'Produto removido com sucesso'})
+    if (!err) {
+      res.status(200).send({ message: 'Produto removido com sucesso' });
     } else {
-      res.status(500).send({message: err.message})
+      res.status(500).send({ message: err.message });
     }
-  })
+  });
 };
 
 const updateProduct = (req, res) => {
-  const id = req.params.id;
+  const { id } = req.params;
 
-  Products.findByIdAndUpdate(id, {$set: req.body}, (err) => {
-    if(!err) {
-      res.status(200).send({message: 'Produto atualizado com sucesso'})
+  Products.findByIdAndUpdate(id, { $set: req.body }, (err) => {
+    if (!err) {
+      res.status(200).send({ message: 'Produto atualizado com sucesso' });
     } else {
-      res.status(500).send({message: err.message})
+      res.status(500).send({ message: err.message });
     }
-  })
+  });
 };
 
 const showProduct = (req, res) => {
   Products.find((err, Products) => {
     res.status(200).json(Products);
-  })  
+  });
 };
 
 module.exports = {
