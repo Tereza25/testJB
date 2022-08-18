@@ -8,4 +8,13 @@ db.once("open", () => {
 
 const app = express();
 
+//rotas
+const index = require('./routes/index');
+const products = require('./routes/productRoutes');
+
+app.use(express.json());
+
+app.use('/', index);
+app.use('/products', products);
+
 module.exports = app;
